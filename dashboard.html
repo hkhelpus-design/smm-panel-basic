@@ -47,7 +47,8 @@
 
   <div class="content">
     <div class="card">
-      <h3>Saldo: Rp 0</h3>
+      <h3>Saldo: Rp <span id="saldo">0</span></h3>
+<button onclick="tambahSaldo()">Tambah Saldo</button>
     </div>
 
     <div class="card">
@@ -55,6 +56,13 @@
       <button onclick="alert('Fitur segera hadir')">Order Sekarang</button>
     </div>
   </div>
+<script>
+let saldo = 0;
 
+function tambahSaldo() {
+  saldo += 10000;
+  document.getElementById("saldo").innerText = saldo;
+}
+</script>
 </body>
 </html>
