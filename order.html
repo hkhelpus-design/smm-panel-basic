@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Buat Order</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  font-family:Arial;
+  padding:20px;
+  background:#f4f6f9;
+}
+.card{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 5px 10px rgba(0,0,0,0.1);
+}
+select,input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+}
+button{
+  width:100%;
+  padding:10px;
+  background:#764ba2;
+  color:white;
+  border:none;
+  border-radius:5px;
+  margin-top:5px;
+}
+h2{margin-top:0;}
+</style>
+</head>
+<body>
+
+<div class="card">
+<h2>Buat Order</h2>
+
+<select id="service" onchange="updateHarga()">
+<option value="0">Pilih Layanan</option>
+<option value="25" data-type="normal">Instagram Followers - Rp25 / 1</option>
+<option value="20" data-type="normal">TikTok Followers - Rp20 / 1</option>
+<option value="150" data-type="normal">YouTube Subscribers - Rp150 / 1</option>
+<option value="55" data-type="roblox">Roblox Followers - Rp11.000 / 200</option>
+</select>
+
+<input type="text" placeholder="Link Target">
+
+<input type="number" id="jumlah" placeholder="Jumlah" oninput="updateHarga()">
+
+<p>Harga per item: Rp <span id="hargaItem">0</span></p>
+<p>Total: Rp <span id="totalHarga">0</span></p>
+
+<button onclick="kirimOrder()">Kirim Order</button>
+<button onclick="window.location.href='dashboard.html'">Kembali</button>
+</div>
+
+<script>
+let user = localStorage.getItem("activeUser");
+if(!user){
+  window.location.href="login.html";
+}
+
+function updateHarga(){
+  let service = document.getElementById("service");
+  let harga = Number(service.value);
+  let jumlah = Number(document.getElementById("jumlah").value);
+
+  document.getElementById("hargaItem").innerText = harga;
+  document.getElementById("totalHarga").innerText = harga * jumlah;
+}
+
+function kirimOrder(){
+  let service = document.getElementById("service");
+  let harga = Number(service.value);
+  let jumlah = Number(document.getElementById("jumlah").value);
+  let total = harga * jumlah;
+
+  if(harga === 0){
+    alert("Pilih layanan dulu!");
+    return;
+  }
+
+  let type = service.options[service.selectedIndex].dataset.type;
+
+  // VALIDASI ROBLOX
+  if(type === "roblox"){
+    if(jumlah % 200 !== 0){
+      alert("Order Roblox harus kelipatan 200!");
+      return;
+    }
+  }
+
+  let saldoKey = "saldo_"+user;
+  let saldo = Number(localStorage.getItem(saldoKey)) || 0;
+
+  if(total <= 0){
+    alert("Isi jumlah dulu!");
+    return;
+  }
+
+  if(saldo >= total){
+    saldo -= total;
+    localStorage.setItem(saldoKey, saldo);
+    alert("Order berhasil dikirim!");
+    window.location.href="dashboard.html";
+  }else{
+    alert("Saldo tidak cukup!");
+  }
+}
+</script>
+
+</body>
+  </html>
