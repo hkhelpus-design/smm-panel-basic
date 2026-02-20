@@ -43,8 +43,9 @@ function login(){
   let savedPass = localStorage.getItem("password");
 
   if(user === savedUser && pass === savedPass){
-    window.location.href="dashboard.html";
-  } else {
+  localStorage.setItem("login","true"); // TAMBAH INI
+  window.location.href="dashboard.html";
+} else {
     alert("Username atau password salah!");
   }
 }
