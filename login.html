@@ -43,8 +43,8 @@ function login(){
   let savedPass = localStorage.getItem("password");
 
   if(user === savedUser && pass === savedPass){
-  localStorage.setItem("login","true"); // TAMBAH INI
-  window.location.href="dashboard.html";
+    localStorage.setItem("activeUser", user); // INI WAJIB ADA
+    window.location.href="dashboard.html";
 } else {
     alert("Username atau password salah!");
   }
