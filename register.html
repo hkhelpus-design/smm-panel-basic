@@ -1,37 +1,29 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Register</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{font-family:Arial;background:#764ba2;display:flex;justify-content:center;align-items:center;height:100vh;color:white;}
-.box{background:rgba(255,255,255,0.1);padding:20px;border-radius:10px;width:300px;text-align:center;}
-input,button{width:100%;padding:10px;margin:10px 0;border:none;border-radius:5px;}
-button{background:white;color:#764ba2;font-weight:bold;}
-</style>
 </head>
-<body>
-<div class="box">
+<body style="text-align:center;margin-top:100px;font-family:Arial;background:#1e1e2f;color:white;">
+
 <h2>Register</h2>
-<input type="text" id="username" placeholder="Username">
-<input type="password" id="password" placeholder="Password">
+
+<input type="text" id="newUsername" placeholder="Username"><br><br>
+<input type="password" id="newPassword" placeholder="Password"><br><br>
+
 <button onclick="register()">Daftar</button>
-</div>
 
 <script>
 function register(){
-let user=document.getElementById("username").value;
-let pass=document.getElementById("password").value;
+  let user = document.getElementById("newUsername").value;
+  let pass = document.getElementById("newPassword").value;
 
-if(user && pass){
-localStorage.setItem("user_"+user,pass);
-localStorage.setItem("saldo_"+user,0);
-alert("Akun berhasil dibuat!");
-window.location.href="login.html";
-}else{
-alert("Isi semua data!");
-}
+  localStorage.setItem("username", user);
+  localStorage.setItem("password", pass);
+
+  alert("Akun berhasil dibuat!");
+  window.location.href="index.html";
 }
 </script>
+
 </body>
 </html>
